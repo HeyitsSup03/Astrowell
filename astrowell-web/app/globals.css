@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────
+   Tailwind v4 theme — all design tokens defined here
+   (replaces tailwind.config.ts in Tailwind v4)
+──────────────────────────────────────────────────────────── */
+@theme {
+  /* --- Fonts --- */
+  --font-display: var(--font-cormorant), "Georgia", serif;
+  --font-body:    var(--font-inter), system-ui, sans-serif;
+  --font-family-display: var(--font-display);
+  --font-family-body:    var(--font-body);
+  --font-family-sans:    var(--font-body);
+
+  /* --- Brand Colors (same in light + dark) --- */
+  --color-primary:       #2E1A47;
+  --color-primary-light: #4B2E83;
+  --color-accent:        #D4A24C;
+  --color-secondary:     #7A1F3D;
+  --color-success:       #3E8E5A;
+  --color-danger:        #C0392B;
+
+  /* --- Light mode surface tokens --- */
+  --color-background:   #FDF8F0;
+  --color-surface:      #FFFFFF;
+  --color-text-primary: #1F1B24;
+  --color-text-muted:   #6B6470;
+
+  /* --- Dark mode surface tokens (used via dark: variant) --- */
+  --color-background-dark:   #1A1226;
+  --color-surface-dark:      #241934;
+  --color-text-primary-dark: #F2EDF7;
+  --color-text-muted-dark:   #A99CB5;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Dark mode strategy: class-based
+   ThemeToggle toggles .dark on <html>
+──────────────────────────────────────────────────────────── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ────────────────────────────────────────────────────────────
+   Base reset & defaults
+──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: var(--color-background-dark);
+  color: var(--color-text-primary-dark);
+}
+
+/* ────────────────────────────────────────────────────────────
+   Typography
+──────────────────────────────────────────────────────────── */
+h1, h2 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  line-height: 1.3;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Scrollbar (thin, brand-coloured on desktop)
+──────────────────────────────────────────────────────────── */
+@media (hover: hover) {
+  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2E1A4733; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #2E1A4766; }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Animation utilities (for animate-in / slide-in patterns
+   used in Modal — Next.js 14/Tailwind v4 doesn't ship these
+   by default so we define them here)
+──────────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slide-in-from-bottom-4 {
+  from { transform: translateY(1rem); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes zoom-in-95 {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-in        { animation-fill-mode: both; }
+.fade-in           { animation-name: fade-in; }
+.slide-in-from-bottom-4 { animation-name: slide-in-from-bottom-4; }
+.zoom-in-95        { animation-name: zoom-in-95; }
+.duration-200      { animation-duration: 200ms; }
+.duration-300      { animation-duration: 300ms; }
+.animate-ping      { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-spin      { animation: spin 1s linear infinite; }
+
+/* ────────────────────────────────────────────────────────────
+   Marquee ticker — used on landing page hero ticker strip
+──────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Focus ring reset (browsers vary; we use focus-visible only)
+──────────────────────────────────────────────────────────── */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
