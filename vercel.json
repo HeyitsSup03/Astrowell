@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd astrowell-web && npm run build",
-  "outputDirectory": "astrowell-web/.next",
-  "installCommand": "cd astrowell-web && npm install",
-  "framework": "nextjs"
-}
