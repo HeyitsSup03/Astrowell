@@ -2,28 +2,20 @@
 
 import { CartDrawer } from "@/components/shop/cart-drawer";
 import { ProductCard } from "@/components/shop/product-card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { fetchProducts } from "@/lib/api/shop";
-import { CartItem, MOCK_CATEGORIES, Product } from "@/lib/mocks/shop.mock";
-import {
-  CheckCircle2,
-  Filter,
-  Search,
-  ShieldCheck,
-  ShoppingBag,
-  Sparkles,
-  Truck,
-} from "lucide-react";
+import { MOCK_CATEGORIES, Product } from "@/lib/mocks/shop.mock";
+import { useCartStore } from "@/store/cartStore";
+import { Award, Filter, Search, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function CustomerShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const { items, isOpen, setIsOpen, addItem, updateQuantity, removeItem } =
+    useCartStore();
 
   useEffect(() => {
     async function loadData() {
@@ -35,100 +27,68 @@ export default function CustomerShopPage() {
     loadData();
   }, [activeCategory, searchQuery]);
 
-  function handleAddToCart(product: Product) {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.product.id === product.id);
-      if (existing) {
-        return prev.map((i) =>
-          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      }
-      return [...prev, { product, quantity: 1 }];
-    });
-    setIsCartOpen(true);
-  }
-
-  function handleUpdateQuantity(productId: string, delta: number) {
-    setCartItems((prev) =>
-      prev
-        .map((i) => {
-          if (i.product.id === productId) {
-            const nextQty = i.quantity + delta;
-            return nextQty > 0 ? { ...i, quantity: nextQty } : null;
-          }
-          return i;
-        })
-        .filter(Boolean) as CartItem[]
-    );
-  }
-
-  function handleRemoveItem(productId: string) {
-    setCartItems((prev) => prev.filter((i) => i.product.id !== productId));
-  }
-
-  const totalCartCount = cartItems.reduce((acc, i) => acc + i.quantity, 0);
-
   return (
-    <div className="min-h-screen bg-background dark:bg-background-dark pb-20">
-      {/* ── 1. COSMIC SHOP HERO BANNER ────────────────────────────── */}
-      <section className="relative overflow-hidden rounded-t-3xl rounded-b-3xl bg-gradient-to-r from-[#0A0518] via-[#1A1226] to-[#2E1A47] text-white py-12 px-6 sm:px-10 md:px-16 lg:px-20 border-b border-amber-500/20">
+    <div className="min-h-screen bg-background dark:bg-background-dark pb-20 space-y-8">
+      {/* ── 1. HERO BANNER MATCHING E COMMERCE INSPO REFERENCE ──── */}
+      <section className="relative -mt-6 lg:w-[calc(100vw-16rem-5px)] lg:relative lg:left-1/2 lg:-translate-x-1/2 -mx-4 sm:-mx-6 lg:mx-0 overflow-hidden bg-[#1C0D2A] bg-[url('/e-commerce-bg.png')] bg-cover bg-no-repeat bg-[right_-350px_center] text-white border-b border-amber-500/20 shadow-xl min-h-[320px] sm:min-h-[380px] flex items-center">
+        {/* Dark purple velvet gradient overlay for text contrast and seamless blending */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C0D2A] via-[#1C0D2A] to-transparent sm:from-[#1C0D2A] sm:via-[#1C0D2A]/90 sm:to-transparent pointer-events-none" />
 
-        <div className="absolute inset-0 bg-[radial-gradient(#D4A24C_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 text-center md:text-left max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-accent text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" /> 100% Lab Certified & Vedic Energized
-            </div>
-
+        <div className="relative w-full px-6 sm:px-10 lg:px-16 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
+          {/* Left Column: Text & Metallic Seal Badges (~60% width) */}
+          <div className="lg:col-span-7 space-y-5 text-left">
+            {/* Title */}
             <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
-              Sacred Gemstones & <br className="hidden sm:inline" />
-              <span className="text-accent italic font-normal">Vedic Remedial Products</span>
+              Sacred Gemstones & <br />
+              <span className="text-[#D4A24C]">Vedic Remedial Products</span>
             </h1>
 
-            <p className="text-white/70 text-sm sm:text-base max-w-xl">
-              Authentic unheated gemstones, Nepal Rudraksha malas, and consecrated pooja kits blessed by certified Vedic priests.
+            {/* Subtitle */}
+            <p className="text-white/85 text-sm sm:text-base font-body max-w-lg leading-relaxed">
+              Authentic Unheated Gemstones, Nepal Rudraksha malas, <br className="hidden sm:inline" />
+              and Consecrated Pooja kits.
             </p>
 
-            {/* Trust Badges */}
-            <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-white/80 font-medium">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Lab Test Certificate
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-amber-400" /> Lifetime Authenticity
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-sky-400" /> Insured Free Shipping
-              </span>
-            </div>
-          </div>
-
-          {/* Floating Cart Trigger Widget */}
-          <div className="shrink-0">
-            <Button
-              onClick={() => setIsCartOpen(true)}
-              className="relative bg-accent hover:bg-amber-500 text-primary font-bold px-6 py-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center gap-3 active:scale-95"
-            >
-              <ShoppingBag className="w-6 h-6" />
-              <div className="text-left">
-                <div className="text-xs uppercase tracking-wider text-primary/80">View Cart</div>
-                <div className="text-base font-extrabold">{totalCartCount} Items</div>
+            {/* Metallic Seals Row */}
+            <div className="flex flex-wrap items-center gap-6 pt-2">
+              {/* Gold Seal Medallion */}
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 border-2 border-amber-100/80 shadow-lg flex items-center justify-center text-[#2E1A47] shrink-0">
+                  <Award className="w-6 h-6 stroke-[2.5]" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white tracking-wide">
+                    Lab Certified
+                  </div>
+                  <div className="text-[10px] text-amber-200/80 font-medium uppercase tracking-wider">
+                    Embossed
+                  </div>
+                </div>
               </div>
-              {totalCartCount > 0 && (
-                <span className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center border-2 border-primary animate-bounce">
-                  {totalCartCount}
-                </span>
-              )}
-            </Button>
+
+              {/* Silver Seal Medallion */}
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-slate-100 via-slate-300 to-slate-500 border-2 border-slate-50/80 shadow-lg flex items-center justify-center text-slate-900 shrink-0">
+                  <ShieldCheck className="w-6 h-6 stroke-[2.5]" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white tracking-wide">
+                    Lifetime Authenticity
+                  </div>
+                  <div className="text-[10px] text-slate-300/80 font-medium uppercase tracking-wider">
+                    Embossed Metalium
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 2. CATEGORY FILTER BAR & SEARCH ───────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-16 pt-8 pb-4">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between border-b border-black/5 dark:border-white/8 pb-6">
-          {/* Category Horizontal Scroll Bar */}
+      {/* ── 2. CATEGORY PILL FILTER & PILL SEARCH BAR ──────────── */}
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+          {/* Category Pills Row */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto no-scrollbar pb-1">
             {MOCK_CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.id;
@@ -137,45 +97,47 @@ export default function CustomerShopPage() {
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   type="button"
-                  className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${isActive
-                    ? "bg-accent text-primary shadow-sm"
-                    : "bg-surface dark:bg-surface-dark border border-black/5 dark:border-white/8 text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark"
+                  className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all shrink-0 cursor-pointer border ${isActive
+                    ? "bg-[#D4A24C] text-[#2E1A47] border-[#D4A24C] shadow-md font-bold"
+                    : "bg-surface dark:bg-surface-dark border-amber-300/60 dark:border-amber-400/30 text-text-muted dark:text-text-muted-dark hover:border-amber-400 hover:text-text-primary dark:hover:text-text-primary-dark"
                     }`}
                 >
-                  <span>{cat.icon}</span>
-                  <span>{cat.label}</span>
+                  {cat.label}
                 </button>
               );
             })}
           </div>
 
-          {/* Search Box */}
-          <div className="relative w-full md:w-72 shrink-0">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted dark:text-text-muted-dark" />
-            <Input
+          {/* Pill Search Input */}
+          <div className="relative w-full md:w-80 shrink-0">
+            <input
               type="text"
               placeholder="Search gemstones, malas..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 bg-surface dark:bg-surface-dark border-black/10 dark:border-white/10 text-xs sm:text-sm rounded-full"
+              className="w-full bg-surface dark:bg-surface-dark border border-amber-300/60 dark:border-amber-400/30 rounded-full px-4 py-2 pr-10 text-xs sm:text-sm text-text-primary dark:text-text-primary-dark placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all shadow-sm"
             />
+            <Search className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-600 dark:text-amber-400 pointer-events-none" />
           </div>
         </div>
       </div>
 
-      {/* ── 3. PRODUCT CATALOG GRID ───────────────────────────────── */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-4">
+      {/* ── 3. PRODUCT CATALOG GRID & EXTENSIBLE BACKGROUND ─────── */}
+      <main className="relative w-full px-4 sm:px-6 lg:px-8">
+        {/* Extensible background container for optional Sri Yantra line-art graphic overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-5 bg-no-repeat bg-right-top bg-contain" />
+
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((n) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((n) => (
               <div
                 key={n}
-                className="h-80 rounded-2xl bg-surface dark:bg-surface-dark border border-black/5 dark:border-white/8 animate-pulse"
+                className="h-80 rounded-2xl bg-surface dark:bg-surface-dark border border-amber-200/60 dark:border-white/10 animate-pulse"
               />
             ))}
           </div>
         ) : products.length === 0 ? (
-          <div className="text-center py-16 bg-surface dark:bg-surface-dark rounded-2xl border border-black/5 dark:border-white/8">
+          <div className="text-center py-16 bg-surface dark:bg-surface-dark rounded-2xl border border-amber-200/60 dark:border-white/10">
             <Filter className="w-12 h-12 stroke-[1.5] text-amber-500/40 mx-auto mb-3" />
             <h3 className="font-display font-bold text-lg text-text-primary dark:text-text-primary-dark">
               No products found
@@ -185,12 +147,12 @@ export default function CustomerShopPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
-                onAddToCart={handleAddToCart}
+                onAddToCart={addItem}
               />
             ))}
           </div>
@@ -199,11 +161,11 @@ export default function CustomerShopPage() {
 
       {/* ── 4. SLIDE-OVER CART DRAWER ─────────────────────────────── */}
       <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        items={items}
+        onUpdateQuantity={updateQuantity}
+        onRemoveItem={removeItem}
       />
     </div>
   );

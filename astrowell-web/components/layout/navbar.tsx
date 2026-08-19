@@ -4,13 +4,17 @@ import { Avatar } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { formatCurrency } from "@/lib/utils";
 import { useWalletStore } from "@/store/walletStore";
-import { Sparkles, Wallet as WalletIcon } from "lucide-react";
+import { useCartStore } from "@/store/cartStore";
+import { ShoppingBag, Sparkles, Wallet as WalletIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { getWallet } from "@/lib/api/wallet";
 
 export function Navbar() {
   const { wallet, setWallet } = useWalletStore();
+  const { items, setIsOpen } = useCartStore();
+
+  const totalCartCount = items.reduce((acc, i) => acc + i.quantity, 0);
 
   useEffect(() => {
     getWallet().then(setWallet);
@@ -47,6 +51,19 @@ export function Navbar() {
               </span>
             </div>
           </Link>
+
+          {/* Cart Icon Button with Badge */}
+          <button
+            onClick={() => setIsOpen(true)}
+            type="button"
+            className="relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-text-primary dark:text-text-primary-dark transition-colors cursor-pointer"
+            aria-label="Open Cart"
+          >
+            <ShoppingBag className="h-5 w-5 text-amber-700 dark:text-amber-400" />
+            <span className="absolute -top-1 -right-1 h-4.5 w-4.5 rounded-full bg-[#D4A24C] text-[#2E1A47] text-[10px] font-bold flex items-center justify-center border border-white dark:border-surface-dark">
+              {totalCartCount}
+            </span>
+          </button>
 
           {/* Theme Toggle */}
           <ThemeToggle />
