@@ -12,6 +12,7 @@ import {
   Compass,
   ShoppingBag,
   Sparkles,
+  GraduationCap,
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -27,6 +28,7 @@ const quickNavItems = [
   { href: "/kundli/generate", label: "Kundli Chart", icon: Sparkles },
   { href: "/kundli/match", label: "Matchmaking", icon: Compass },
   { href: "/shop", label: "Astro Shop", icon: ShoppingBag },
+  { href: "/courses", label: "Vedic Courses", icon: GraduationCap },
 ] as const;
 
 /** Desktop-only persistent sidebar (visible at lg: and above) */
