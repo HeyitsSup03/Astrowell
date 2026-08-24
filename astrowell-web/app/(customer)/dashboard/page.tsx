@@ -114,19 +114,31 @@ function CustomerDashboardContent() {
         </div>
       </Card>
 
-      {/* ── Category Filter Tabs ────────────────────────────────── */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <h2 className="text-lg font-bold text-text-primary dark:text-text-primary-dark">
-            Browse Experts
-          </h2>
-          <span className="text-xs text-text-muted dark:text-text-muted-dark">
-            Showing {filteredProviders.length} of {providers.length} providers
-          </span>
+      {/* ── UNIFIED CELESTIAL EXPERTS MASTER CARD ─────────────────── */}
+      <Card className="p-6 md:p-8 space-y-6 rounded-3xl bg-surface dark:bg-surface-dark border border-black/8 dark:border-white/12 shadow-xl relative overflow-hidden">
+        {/* Card Header & Counter Badge */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-black/5 dark:border-white/8">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <h2 className="font-display font-bold text-xl text-text-primary dark:text-text-primary-dark">
+                Browse Certified Experts
+              </h2>
+            </div>
+            <p className="text-xs text-text-muted dark:text-text-muted-dark">
+              Connect 1:1 live with verified Astrologers, Yoga Gurus & Dietitians
+            </p>
+          </div>
+
+          <Badge variant="accent" className="bg-amber-400/10 text-amber-700 dark:text-amber-300 border-amber-400/30 text-xs font-bold px-3 py-1 shrink-0">
+            Showing {filteredProviders.length} of {providers.length} Experts
+          </Badge>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {/* Category Pills Bar */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
           {[
             { id: "all", label: "All Experts", icon: Users },
             { id: "astrologer", label: "Astrologers", icon: Sparkles },
@@ -139,11 +151,12 @@ function CustomerDashboardContent() {
             return (
               <button
                 key={cat.id}
+                type="button"
                 onClick={() => setSelectedCategory(cat.id as CategoryFilter)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
                   isActive
                     ? "bg-primary text-white dark:bg-primary-light shadow-sm font-semibold"
-                    : "bg-surface dark:bg-surface-dark border border-black/5 dark:border-white/8 text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark"
+                    : "bg-black/2 dark:bg-white/3 border border-black/5 dark:border-white/8 text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark"
                 }`}
               >
                 <Icon className="h-3.5 w-3.5" />
@@ -153,85 +166,94 @@ function CustomerDashboardContent() {
           })}
         </div>
 
-        {/* Search & Filter Controls Bar */}
-        <Card className="p-3.5 flex flex-col md:flex-row items-center gap-3">
-          <div className="w-full md:flex-1">
-            <Input
+        {/* Seamless Floating Search & Filter Bar (No inner container box) */}
+        <div className="flex flex-col md:flex-row items-center gap-3 pt-1">
+          {/* Pill Search Bar */}
+          <div className="relative w-full md:flex-1">
+            <input
+              type="text"
               placeholder="Search by name, skill (e.g. Kundli, Hatha, PCOD, Dasha)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              leftIcon={<Search className="h-4 w-4" />}
+              className="w-full bg-black/3 dark:bg-white/5 border border-black/8 dark:border-white/12 rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm text-text-primary dark:text-text-primary-dark placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-amber-400/60 focus:border-amber-400 transition-all shadow-xs"
             />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-600 dark:text-amber-400 pointer-events-none" />
           </div>
 
-          <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto">
-            <Button
-              size="sm"
-              variant={onlineOnly ? "primary" : "outline"}
+          {/* Capsule Filter Chips */}
+          <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto no-scrollbar">
+            <button
+              type="button"
               onClick={() => setOnlineOnly((prev) => !prev)}
-              className="text-xs gap-1.5 whitespace-nowrap"
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                onlineOnly
+                  ? "bg-amber-400/20 text-amber-700 dark:text-amber-300 border-amber-400/50 shadow-xs font-bold"
+                  : "bg-black/3 dark:bg-white/5 border-black/8 dark:border-white/12 text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark hover:border-black/20 dark:hover:border-white/20"
+              }`}
             >
-              <Zap className={`h-3.5 w-3.5 ${onlineOnly ? "text-accent" : ""}`} />
-              {onlineOnly ? "Online Only" : "Show Offline Too"}
-            </Button>
+              <Zap className={`h-3.5 w-3.5 ${onlineOnly ? "text-amber-500" : ""}`} />
+              <span>{onlineOnly ? "Online Only" : "Show Offline Too"}</span>
+            </button>
 
-            <Button
-              size="sm"
-              variant={minRating === 4.8 ? "primary" : "outline"}
+            <button
+              type="button"
               onClick={() => setMinRating((prev) => (prev === 4.8 ? null : 4.8))}
-              className="text-xs gap-1.5 whitespace-nowrap"
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                minRating === 4.8
+                  ? "bg-amber-400/20 text-amber-700 dark:text-amber-300 border-amber-400/50 shadow-xs font-bold"
+                  : "bg-black/3 dark:bg-white/5 border-black/8 dark:border-white/12 text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark hover:border-black/20 dark:hover:border-white/20"
+              }`}
             >
-              <Star className="h-3.5 w-3.5 fill-current text-accent" />
-              4.8+ Top Rated
-            </Button>
+              <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+              <span>4.8+ Top Rated</span>
+            </button>
 
             {(selectedCategory !== "all" || searchQuery || onlineOnly || minRating !== null) && (
-              <Button
-                size="sm"
-                variant="ghost"
+              <button
+                type="button"
                 onClick={resetFilters}
-                className="text-xs text-danger hover:text-danger hover:bg-danger/10"
+                className="flex items-center gap-1 px-3 py-2 rounded-full text-xs font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
                 title="Reset all filters"
               >
-                <RotateCcw className="h-3.5 w-3.5 mr-1" />
-                Reset
-              </Button>
+                <RotateCcw className="h-3.5 w-3.5" />
+                <span>Reset</span>
+              </button>
             )}
           </div>
-        </Card>
-      </div>
+        </div>
 
-      {/* ── Provider Cards Grid ─────────────────────────────────── */}
-      {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <ProviderCardSkeleton key={i} />
-          ))}
-        </div>
-      ) : filteredProviders.length === 0 ? (
-        <Card className="text-center py-12 px-4 space-y-4">
-          <div className="h-16 w-16 rounded-full bg-black/5 dark:bg-white/5 mx-auto flex items-center justify-center text-text-muted dark:text-text-muted-dark">
-            <Filter className="h-8 w-8" />
+        {/* Provider Cards Grid (Embedded Inside Master Card) */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ProviderCardSkeleton key={i} />
+            ))}
           </div>
-          <div className="space-y-1 max-w-sm mx-auto">
-            <h3 className="font-bold text-base text-text-primary dark:text-text-primary-dark">
-              No experts match your criteria
-            </h3>
-            <p className="text-xs text-text-muted dark:text-text-muted-dark leading-relaxed">
-              Try relaxing your filters or clearing your search term to see more available astrologers and wellness gurus.
-            </p>
+        ) : filteredProviders.length === 0 ? (
+          <div className="text-center py-12 px-4 space-y-4 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/5 dark:border-white/8">
+            <div className="h-14 w-14 rounded-full bg-black/5 dark:bg-white/5 mx-auto flex items-center justify-center text-text-muted dark:text-text-muted-dark">
+              <Filter className="h-7 w-7" />
+            </div>
+            <div className="space-y-1 max-w-sm mx-auto">
+              <h3 className="font-bold text-base text-text-primary dark:text-text-primary-dark">
+                No experts match your criteria
+              </h3>
+              <p className="text-xs text-text-muted dark:text-text-muted-dark leading-relaxed">
+                Try relaxing your filters or clearing your search term to see more available astrologers and wellness gurus.
+              </p>
+            </div>
+            <Button variant="accent" size="sm" onClick={resetFilters} className="cursor-pointer">
+              Clear All Filters
+            </Button>
           </div>
-          <Button variant="accent" size="sm" onClick={resetFilters}>
-            Clear All Filters
-          </Button>
-        </Card>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredProviders.map((provider) => (
-            <ProviderCard key={provider.id} provider={provider} />
-          ))}
-        </div>
-      )}
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredProviders.map((provider) => (
+              <ProviderCard key={provider.id} provider={provider} />
+            ))}
+          </div>
+        )}
+      </Card>
     </div>
   );
 }
