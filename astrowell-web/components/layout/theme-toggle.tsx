@@ -10,7 +10,7 @@ interface ThemeToggleProps {
   iconClassName?: string;
 }
 
-function ThemeToggle({ className, isScrolled = false, iconClassName }: ThemeToggleProps) {
+function ThemeToggle({ className, isScrolled, iconClassName }: ThemeToggleProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [mounted, setMounted] = useState(false);
 
@@ -42,6 +42,10 @@ function ThemeToggle({ className, isScrolled = false, iconClassName }: ThemeTogg
     return <div className={cn("h-8 w-8 rounded-full", className)} />;
   }
 
+  // When isScrolled is explicitly passed as false (e.g. top of transparent hero landing page), use white.
+  // For all other pages and scrolled state, use vibrant high-contrast colors (indigo/amber).
+  const isTransparentTop = isScrolled === false;
+
   return (
     <button
       onClick={toggle}
@@ -60,9 +64,9 @@ function ThemeToggle({ className, isScrolled = false, iconClassName }: ThemeTogg
             "h-4 w-4 transition-transform hover:-rotate-12",
             iconClassName
               ? iconClassName
-              : isScrolled
-              ? "text-indigo-600 dark:text-indigo-300"
-              : "text-white/90 hover:text-white"
+              : isTransparentTop
+              ? "text-white/90 hover:text-white"
+              : "text-indigo-600 dark:text-indigo-300"
           )}
         />
       )}
