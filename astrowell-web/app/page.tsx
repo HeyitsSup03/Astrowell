@@ -71,16 +71,16 @@ export default function LandingPage() {
           : "bg-transparent border-transparent"
           }`}
       >
-        <div className="w-full px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 h-16 flex items-center justify-between gap-6">
+        <div className="w-full px-4 sm:px-10 md:px-16 lg:px-20 xl:px-24 h-16 flex items-center justify-between gap-3 sm:gap-6">
           {/* Brand Logo */}
           <Logo href="/" size="md" textClassName={isScrolled ? "" : "text-white"} />
 
           {/* Right Nav Controls */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
             <ThemeToggle isScrolled={isScrolled} />
             <Link href="/login">
               <span
-                className={`text-sm font-medium transition-all px-3.5 py-1.5 rounded-full cursor-pointer ${isScrolled
+                className={`text-sm font-medium transition-all px-3 py-1.5 rounded-full cursor-pointer whitespace-nowrap ${isScrolled
                   ? "text-text-primary dark:text-text-primary-dark hover:bg-black/5 dark:hover:bg-white/10"
                   : "text-white/85 hover:text-white hover:bg-white/10"
                   }`}
@@ -90,7 +90,7 @@ export default function LandingPage() {
             </Link>
             <Link href="/login?mode=signup">
               <span
-                className={`text-sm font-medium transition-all px-3.5 py-1.5 rounded-full cursor-pointer ${isScrolled
+                className={`text-sm font-medium transition-all px-3 py-1.5 rounded-full cursor-pointer whitespace-nowrap ${isScrolled
                   ? "text-text-primary dark:text-text-primary-dark hover:bg-black/5 dark:hover:bg-white/10"
                   : "text-white/85 hover:text-white hover:bg-white/10"
                   }`}
