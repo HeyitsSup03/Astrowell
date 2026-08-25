@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 import {
   BarChart3,
@@ -34,19 +35,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <aside aria-label="Admin Navigation Sidebar" className="w-full md:w-64 md:h-screen md:sticky top-0 flex-shrink-0 bg-surface dark:bg-surface-dark border-r border-black/5 dark:border-white/8 p-4 flex flex-col justify-between">
         <div className="space-y-6">
           {/* Admin Header */}
-          <Link href="/admin/analytics" className="flex items-center gap-2.5 px-3 group">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-secondary via-primary to-primary flex items-center justify-center text-accent shadow-xs">
-              <Shield className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-display font-bold text-primary dark:text-primary-light">
-                Astrowell
-              </span>
+          <div className="px-3 space-y-1">
+            <Logo href="/admin/analytics" size="md" />
+            <div className="pl-11">
               <Badge variant="danger" className="text-[9px] py-0 w-fit">
                 Admin Console
               </Badge>
             </div>
-          </Link>
+          </div>
 
           {/* Nav Items */}
           <nav className="space-y-1">

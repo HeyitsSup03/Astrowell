@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Logo } from "@/components/ui/logo";
 import {
   Home,
   Calendar,
@@ -48,19 +49,9 @@ export function Sidebar({ className }: { className?: string }) {
       )}
     >
       {/* Brand Header */}
-      <Link href="/dashboard" className="flex items-center gap-2.5 px-3 mb-8 group">
-        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary via-primary-light to-secondary flex items-center justify-center text-accent shadow-xs">
-          <Sparkles className="h-5 w-5" />
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xl font-display font-bold text-primary dark:text-primary-light tracking-tight group-hover:text-accent transition-colors">
-            Astrowell
-          </span>
-          <span className="text-[10px] uppercase font-semibold text-text-muted dark:text-text-muted-dark tracking-widest">
-            Cosmic Guidance
-          </span>
-        </div>
-      </Link>
+      <div className="px-3 mb-8">
+        <Logo href="/dashboard" size="md" subtitle="Cosmic Guidance" />
+      </div>
 
       {/* Main Navigation */}
       <div className="flex-1 space-y-6 overflow-y-auto pr-1">

@@ -4,6 +4,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 import {
   Briefcase,
@@ -35,19 +36,14 @@ export default function ProviderLayout({ children }: { children: ReactNode }) {
       {/* ── Desktop Provider Sidebar ────────────────────────────── */}
       <aside aria-label="Provider Sidebar Navigation" className="hidden lg:flex flex-col w-64 h-screen sticky top-0 bg-surface dark:bg-surface-dark border-r border-black/5 dark:border-white/8 p-4">
         {/* Brand & Mode Indicator */}
-        <Link href="/provider/dashboard" className="flex items-center gap-2.5 px-3 mb-6 group">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary via-primary-light to-secondary flex items-center justify-center text-accent shadow-xs">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-display font-bold text-primary dark:text-primary-light">
-              Astrowell
-            </span>
+        <div className="px-3 mb-6 space-y-1">
+          <Logo href="/provider/dashboard" size="md" />
+          <div className="pl-11">
             <Badge variant="accent" className="text-[9px] py-0 w-fit">
               Provider Portal
             </Badge>
           </div>
-        </Link>
+        </div>
 
         {/* Navigation Links */}
         <nav className="flex-1 space-y-1">
@@ -91,9 +87,7 @@ export default function ProviderLayout({ children }: { children: ReactNode }) {
         {/* Mobile Header Bar */}
         <header className="lg:hidden sticky top-0 z-30 bg-surface/95 dark:bg-surface-dark/95 border-b border-black/5 dark:border-white/8 px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-display font-bold text-lg text-primary dark:text-primary-light">
-              Astrowell
-            </span>
+            <Logo href="/provider/dashboard" size="sm" />
             <Badge variant="accent" className="text-[10px]">Provider</Badge>
           </div>
           <div className="flex items-center gap-2">

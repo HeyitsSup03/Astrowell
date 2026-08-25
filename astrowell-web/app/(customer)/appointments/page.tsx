@@ -80,30 +80,65 @@ export default function AppointmentsPage() {
         </div>
       </Card>
 
-      {/* Tabs View */}
-      <div className="space-y-4">
-        <Tabs
-          tabs={[
-            { id: "upcoming", label: `Upcoming Sessions (${upcoming.length})` },
-            { id: "past", label: `Past Sessions (${past.length})` },
-          ]}
-          defaultTab="upcoming"
-          onChange={setActiveTab}
-        />
+      {/* ── UNIFIED APPOINTMENTS MASTER CARD ──────────────────────── */}
+      <Card className="p-6 md:p-8 space-y-6 rounded-3xl bg-surface dark:bg-surface-dark border border-black/8 dark:border-white/12 shadow-xl relative overflow-hidden">
+        {/* Header & Embedded Tab Switcher Bar */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-black/5 dark:border-white/8">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <Calendar className="w-4 h-4" />
+              </div>
+              <h2 className="font-display font-bold text-xl text-text-primary dark:text-text-primary-dark">
+                My Consultation Sessions
+              </h2>
+            </div>
+            <p className="text-xs text-text-muted dark:text-text-muted-dark">
+              Track, join live video/chat, and manage your expert bookings
+            </p>
+          </div>
 
+          {/* Embedded Pill Tab Switcher */}
+          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-black/3 dark:bg-white/5 border border-black/8 dark:border-white/12">
+            <button
+              type="button"
+              onClick={() => setActiveTab("upcoming")}
+              className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === "upcoming"
+                  ? "bg-primary text-white dark:bg-primary-light shadow-xs"
+                  : "text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark"
+              }`}
+            >
+              Upcoming ({upcoming.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("past")}
+              className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === "past"
+                  ? "bg-primary text-white dark:bg-primary-light shadow-xs"
+                  : "text-text-muted dark:text-text-muted-dark hover:text-text-primary dark:hover:text-text-primary-dark"
+              }`}
+            >
+              Past ({past.length})
+            </button>
+          </div>
+        </div>
+
+        {/* Sessions List / Content inside Master Card */}
         {isLoading ? (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {Array.from({ length: 3 }).map((_, i) => (
               <ProviderCardSkeleton key={i} />
             ))}
           </div>
         ) : displayedList.length === 0 ? (
-          <Card className="text-center py-12 px-4 space-y-3">
-            <Calendar className="h-12 w-12 text-text-muted dark:text-text-muted-dark mx-auto" />
+          <div className="text-center py-12 px-4 space-y-3 rounded-2xl bg-black/2 dark:bg-white/2 border border-black/5 dark:border-white/8">
+            <Calendar className="h-10 w-10 text-amber-500/60 mx-auto" />
             <h3 className="font-bold text-base text-text-primary dark:text-text-primary-dark">
               No {activeTab} appointments found
             </h3>
-            <p className="text-xs text-text-muted dark:text-text-muted-dark">
+            <p className="text-xs text-text-muted dark:text-text-muted-dark max-w-xs mx-auto">
               You don't have any {activeTab} bookings scheduled at the moment.
             </p>
             <Link href="/dashboard">
@@ -111,11 +146,14 @@ export default function AppointmentsPage() {
                 Explore Experts
               </Button>
             </Link>
-          </Card>
+          </div>
         ) : (
           <div className="space-y-4">
             {displayedList.map((appt) => (
-              <Card key={appt.id} className="p-5 space-y-4 hover:shadow-md transition-shadow">
+              <div
+                key={appt.id}
+                className="p-5 rounded-2xl bg-black/2 dark:bg-white/3 border border-black/6 dark:border-white/8 space-y-4 hover:border-amber-400/40 transition-all shadow-xs"
+              >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   {/* Provider Avatar + Info */}
                   <div className="flex items-center gap-3.5">
@@ -133,33 +171,33 @@ export default function AppointmentsPage() {
                           {statusLabels[appt.status]}
                         </Badge>
                       </div>
-                      <p className="text-xs text-text-muted dark:text-text-muted-dark">
+                      <p className="text-xs text-text-muted dark:text-text-muted-dark font-medium">
                         {appt.providerCategory} • {formatCurrency(appt.costEstimate)}
                       </p>
                     </div>
                   </div>
 
                   {/* Date & Mode Pill */}
-                  <div className="flex items-center gap-3 text-xs bg-black/4 dark:bg-white/4 p-3 rounded-xl">
-                    <div className="flex items-center gap-1.5 font-medium text-text-primary dark:text-text-primary-dark">
-                      <Clock className="h-4 w-4 text-accent" />
+                  <div className="flex items-center gap-3 text-xs bg-black/4 dark:bg-white/4 p-3 rounded-xl border border-black/5 dark:border-white/5">
+                    <div className="flex items-center gap-1.5 font-semibold text-text-primary dark:text-text-primary-dark">
+                      <Clock className="h-4 w-4 text-amber-500" />
                       <span>{formatDate(appt.slotStart)} at {formatTime(appt.slotStart)}</span>
                     </div>
-                    <Badge variant="primary" className="capitalize">
+                    <Badge variant="primary" className="capitalize text-[11px]">
                       {appt.mode} Mode
                     </Badge>
                   </div>
                 </div>
 
                 {appt.notes && (
-                  <p className="text-xs text-text-muted dark:text-text-muted-dark bg-black/2 dark:bg-white/2 p-2.5 rounded-lg border border-black/5 dark:border-white/5">
-                    <strong>Topic:</strong> {appt.notes}
+                  <p className="text-xs text-text-muted dark:text-text-muted-dark bg-black/2 dark:bg-white/2 p-3 rounded-xl border border-black/5 dark:border-white/5 leading-relaxed">
+                    <strong className="text-text-primary dark:text-text-primary-dark">Topic:</strong> {appt.notes}
                   </p>
                 )}
 
                 {/* Card Action Buttons */}
                 <div className="flex items-center justify-between pt-3 border-t border-black/5 dark:border-white/8">
-                  <span className="text-xs text-text-muted dark:text-text-muted-dark">
+                  <span className="text-xs font-mono text-text-muted dark:text-text-muted-dark">
                     Booking Ref: #{appt.id}
                   </span>
 
@@ -167,13 +205,13 @@ export default function AppointmentsPage() {
                     {appt.status === "confirmed" && (
                       <>
                         <Link href={`/chat/conv-001`}>
-                          <Button size="sm" variant="accent" className="font-semibold">
-                            <MessageSquare className="h-4 w-4 mr-1" /> Start Chat
+                          <Button size="sm" variant="accent" className="font-semibold gap-1.5 cursor-pointer">
+                            <MessageSquare className="h-4 w-4" /> Start Chat
                           </Button>
                         </Link>
                         <Link href={`/call/session-001`}>
-                          <Button size="sm" variant="outline">
-                            <Video className="h-4 w-4 mr-1" /> Join Call
+                          <Button size="sm" variant="outline" className="font-semibold gap-1.5 cursor-pointer">
+                            <Video className="h-4 w-4" /> Join Call
                           </Button>
                         </Link>
                       </>
@@ -181,24 +219,24 @@ export default function AppointmentsPage() {
 
                     {appt.status === "completed" && (
                       <Link href={`/providers/${appt.providerId}`}>
-                        <Button size="sm" variant="outline">
-                          <RotateCcw className="h-3.5 w-3.5 mr-1" /> Book Again
+                        <Button size="sm" variant="outline" className="font-semibold gap-1.5 cursor-pointer">
+                          <RotateCcw className="h-3.5 w-3.5" /> Book Again
                         </Button>
                       </Link>
                     )}
 
                     {appt.status === "pending" && (
-                      <Button size="sm" variant="ghost" className="text-danger">
+                      <Button size="sm" variant="ghost" className="text-danger hover:bg-danger/10 text-xs font-semibold cursor-pointer">
                         Cancel Request
                       </Button>
                     )}
                   </div>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 }

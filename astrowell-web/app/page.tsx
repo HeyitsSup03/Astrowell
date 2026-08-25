@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { ProviderCardSkeleton } from "@/components/ui/skeleton";
 import { ProviderCard } from "@/components/provider-card/provider-card";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { Logo } from "@/components/ui/logo";
 import { getProviders } from "@/lib/api/providers";
 import type { Provider } from "@/types";
 import {
@@ -72,14 +73,7 @@ export default function LandingPage() {
       >
         <div className="w-full px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 h-16 flex items-center justify-between gap-6">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span
-              className={`font-display font-bold text-2xl tracking-tight transition-colors duration-300 ${isScrolled ? "text-primary dark:text-primary-light" : "text-white"
-                }`}
-            >
-              Astrowell
-            </span>
-          </Link>
+          <Logo href="/" size="md" textClassName={isScrolled ? "" : "text-white"} />
 
           {/* Right Nav Controls */}
           <div className="flex items-center gap-2 sm:gap-4">

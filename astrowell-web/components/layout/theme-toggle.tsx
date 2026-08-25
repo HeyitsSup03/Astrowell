@@ -47,23 +47,17 @@ function ThemeToggle({ className, isScrolled = false }: ThemeToggleProps) {
       type="button"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
       className={cn(
-        "h-8 w-8 rounded-full flex items-center justify-center transition-all duration-200 active:scale-95",
-        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
+        "p-1.5 rounded-full flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer focus-visible:outline-none",
         isScrolled
-          ? "text-text-primary dark:text-text-primary-dark hover:bg-black/5 dark:hover:bg-white/10"
-          : "text-white/80 hover:text-white hover:bg-white/10",
+          ? "text-white hover:text-white/80"
+          : "text-text-primary dark:text-text-primary-dark hover:opacity-80",
         className
       )}
     >
       {theme === "dark" ? (
         <Sun className="h-4 w-4 text-amber-400 transition-transform hover:rotate-45" />
       ) : (
-        <Moon
-          className={cn(
-            "h-4 w-4 transition-transform hover:-rotate-12",
-            isScrolled ? "text-text-primary dark:text-text-primary-dark" : "text-white/90"
-          )}
-        />
+        <Moon className={cn("h-4 w-4 transition-transform hover:-rotate-12", isScrolled ? "text-white" : "text-indigo-600 dark:text-indigo-300")} />
       )}
     </button>
   );
