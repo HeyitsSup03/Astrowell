@@ -45,7 +45,7 @@ export default function KycPage() {
       </div>
 
       {/* ── Status Banner Card ────────────────────────────────────── */}
-      <Card className="p-6 bg-gradient-to-r from-primary via-primary-light to-secondary text-white border-0 shadow-md space-y-2">
+      <Card className="p-6 bg-gradient-to-r from-[#0B1E36] via-[#1B3B6F] to-[#214375] text-white border-0 shadow-md space-y-2">
         <div className="flex items-center gap-3">
           <ShieldCheck className="h-8 w-8 text-accent flex-shrink-0" />
           <div>

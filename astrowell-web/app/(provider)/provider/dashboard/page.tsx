@@ -85,7 +85,7 @@ export default function ProviderDashboardPage() {
 
       {/* ── Earnings Summary Cards ────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-5 bg-gradient-to-br from-primary to-primary-light text-white border-0 shadow-md space-y-2">
+        <Card className="p-5 bg-gradient-to-br from-[#0B1E36] via-[#1B3B6F] to-[#214375] text-white border-0 shadow-md space-y-2">
           <span className="text-xs text-white/80 font-medium">Today's Earnings</span>
           <h3 className="text-3xl font-extrabold text-accent font-display">
             {formatCurrency(4850)}

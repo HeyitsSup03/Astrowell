@@ -57,7 +57,7 @@ export function GunMilanScoreCard({
   return (
     <div className="space-y-6">
       {/* ── Main Compatibility Header Banner ───────────────────── */}
-      <Card className="p-6 md:p-8 space-y-6 bg-gradient-to-br from-primary via-primary-light to-secondary text-white border-0 shadow-lg">
+      <Card className="p-6 md:p-8 space-y-6 bg-gradient-to-br from-[#0B1E36] via-[#1B3B6F] to-[#214375] text-white border-0 shadow-lg">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-accent text-xs font-medium backdrop-blur-sm">

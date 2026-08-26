@@ -82,7 +82,7 @@ function CustomerDashboardContent() {
   return (
     <div className="space-y-6">
       {/* ── Welcome Banner / Quick Actions ───────────────────────── */}
-      <Card className="bg-gradient-to-r from-primary via-primary-light to-primary text-white p-6 md:p-8 border-0 shadow-md">
+      <Card className="bg-gradient-to-r from-[#0B1E36] via-[#1B3B6F] to-[#214375] text-white p-6 md:p-8 border-0 shadow-md">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-accent text-xs font-medium backdrop-blur-sm">

@@ -19,20 +19,29 @@ export interface Conversation {
   providerId: string;
   providerName: string;
   providerAvatarUrl: string;
+  category?: string;
+  rating?: number;
+  isVerified?: boolean;
+  isOnline?: boolean;
   customerId: string;
   lastMessage: string;
   lastMessageAt: string;
   unreadCount: number;
+  isArchived?: boolean;
 }
 
 export const conversationsMock: Conversation[] = [
   {
     id: "conv-001",
     providerId: "prov-001",
-    providerName: "Pandit Raghavendra Joshi",
+    providerName: "Pandit Raghavendra Sharma",
     providerAvatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=Raghavendra",
+    category: "Astrologer",
+    rating: 4.8,
+    isVerified: true,
+    isOnline: true,
     customerId: "user-001",
-    lastMessage: "Kindly share your birth time once more for the Navamsa chart.",
+    lastMessage: "Kindly share your birth time once more for the Navamsa chart...",
     lastMessageAt: "2026-08-09T18:45:00+05:30",
     unreadCount: 2,
   },
@@ -41,20 +50,56 @@ export const conversationsMock: Conversation[] = [
     providerId: "prov-002",
     providerName: "Ananya Krishnamurthy",
     providerAvatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=Ananya",
+    category: "Wellness Expert",
+    rating: 4.9,
+    isVerified: true,
+    isOnline: true,
     customerId: "user-001",
     lastMessage: "The compatibility report has been sent to your email.",
     lastMessageAt: "2026-08-08T17:00:00+05:30",
-    unreadCount: 0,
+    unreadCount: 1,
   },
   {
     id: "conv-003",
     providerId: "prov-004",
     providerName: "Yogacharya Suresh Iyer",
     providerAvatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=Suresh",
+    category: "Yoga Expert",
+    rating: 4.7,
+    isVerified: true,
+    isOnline: true,
     customerId: "user-001",
-    lastMessage: "See you tomorrow at 7 AM for the pranayama session!",
-    lastMessageAt: "2026-08-09T21:00:00+05:30",
+    lastMessage: "See you tomorrow at 7 AM for the pradakshina...",
+    lastMessageAt: "2026-08-09T09:00:00+05:30",
     unreadCount: 1,
+  },
+  {
+    id: "conv-004",
+    providerId: "prov-005",
+    providerName: "Dr. Meera Nair",
+    providerAvatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=Meera",
+    category: "Dietitian",
+    rating: 4.6,
+    isVerified: true,
+    isOnline: false,
+    customerId: "user-001",
+    lastMessage: "Please share your recent diet plan.",
+    lastMessageAt: "2026-08-08T10:30:00+05:30",
+    unreadCount: 0,
+  },
+  {
+    id: "conv-005",
+    providerId: "prov-003",
+    providerName: "Tarot Reader Arjun",
+    providerAvatarUrl: "https://api.dicebear.com/7.x/personas/svg?seed=Priya",
+    category: "Tarot Expert",
+    rating: 4.9,
+    isVerified: true,
+    isOnline: true,
+    customerId: "user-001",
+    lastMessage: "Your weekly tarot guidance is ready.",
+    lastMessageAt: "2026-08-07T14:15:00+05:30",
+    unreadCount: 0,
   },
 ];
 

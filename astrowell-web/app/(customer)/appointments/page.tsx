@@ -57,7 +57,7 @@ export default function AppointmentsPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Header Banner */}
-      <Card className="bg-gradient-to-r from-primary via-primary-light to-secondary text-white p-6 md:p-8 border-0 shadow-md">
+      <Card className="bg-gradient-to-r from-[#0B1E36] via-[#1B3B6F] to-[#214375] text-white p-6 md:p-8 border-0 shadow-md">
         <div className="flex items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-accent text-xs font-medium backdrop-blur-sm">

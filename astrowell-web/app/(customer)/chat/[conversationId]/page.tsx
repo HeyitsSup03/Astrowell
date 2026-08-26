@@ -111,11 +111,12 @@ export default function ChatSessionPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-5rem)] max-w-4xl mx-auto border border-black/5 dark:border-white/8 rounded-2xl overflow-hidden bg-background dark:bg-background-dark shadow-sm">
       {/* ── Top Header Bar ────────────────────────────────────────── */}
-      <header className="p-3.5 bg-surface dark:bg-surface-dark border-b border-black/5 dark:border-white/8 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+      <header className="p-2.5 sm:p-4 bg-surface dark:bg-surface-dark border-b border-black/5 dark:border-white/8 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+        {/* Left Provider Info Section */}
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
           <button
             onClick={() => router.back()}
-            className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-text-muted dark:text-text-muted-dark"
+            className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 text-text-muted dark:text-text-muted-dark shrink-0 cursor-pointer"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
@@ -125,32 +126,33 @@ export default function ChatSessionPage() {
             name={provider?.name || "Pandit Raghavendra Joshi"}
             size="md"
             isOnline
+            className="shrink-0"
           />
 
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="font-bold text-sm text-text-primary dark:text-text-primary-dark">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <h2 className="font-bold text-xs sm:text-sm text-text-primary dark:text-text-primary-dark truncate">
                 {provider?.name || "Pandit Raghavendra Joshi"}
               </h2>
-              <Badge variant="success" dot className="text-[10px]">
+              <Badge variant="success" dot className="text-[10px] px-2 py-0.5 whitespace-nowrap shrink-0 hidden xs:inline-flex">
                 Live Session
               </Badge>
             </div>
-            <p className="text-[11px] text-text-muted dark:text-text-muted-dark">
+            <p className="text-[10px] sm:text-[11px] text-text-muted dark:text-text-muted-dark truncate">
               {provider?.category === "astrologer" ? "Vedic Astrologer" : "Wellness Guru"} • Rate: {formatCurrency(provider?.ratePerMin || 30)}/min
             </p>
           </div>
         </div>
 
         {/* Live Session Timer & End Button */}
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent font-bold text-xs">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent font-bold text-xs whitespace-nowrap">
             <Clock className="h-3.5 w-3.5" />
             <span>{formatTimer(sessionSeconds)}</span>
           </div>
 
-          <Link href="/appointments">
-            <Button size="sm" variant="danger" className="text-xs">
+          <Link href="/appointments" className="shrink-0">
+            <Button size="sm" variant="danger" className="text-xs px-2.5 sm:px-3.5 py-1.5 whitespace-nowrap font-semibold cursor-pointer shrink-0">
               End Session
             </Button>
           </Link>

@@ -58,7 +58,7 @@ export default function KundliGeneratePage() {
       {!report ? (
         <div className="space-y-6">
           {/* Intro Hero Card */}
-          <Card className="bg-gradient-to-r from-primary via-primary-light to-secondary text-white p-6 md:p-8 border-0 shadow-md">
+          <Card className="bg-gradient-to-r from-[#0B1E36] via-[#1B3B6F] to-[#214375] text-white p-6 md:p-8 border-0 shadow-md">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-accent text-xs font-medium backdrop-blur-sm">
                 <Sparkles className="h-3.5 w-3.5" />
