@@ -15,7 +15,7 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
         <Navbar />
 
         {/* Scrollable Main View Area */}
-        <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6 pb-24 lg:pb-8">
+        <main className="flex-1 w-full max-w-6xl mx-auto px-2.5 sm:px-4 py-4 sm:py-6 pb-24 lg:pb-8">
           {children}
         </main>
       </div>

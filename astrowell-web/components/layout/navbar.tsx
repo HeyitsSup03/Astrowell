@@ -24,9 +24,9 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-30 w-full bg-surface/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-black/5 dark:border-white/8">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-2.5 sm:px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand logo (visible on mobile, hidden on lg: desktop since sidebar has logo) */}
-        <div className="lg:hidden">
+        <div className="lg:hidden shrink-0">
           <Logo href="/dashboard" size="sm" />
         </div>
 
@@ -38,12 +38,12 @@ export function Navbar() {
         </div>
 
         {/* Right side tools */}
-        <div className="flex items-center gap-3 ml-auto">
+        <div className="flex items-center gap-1.5 sm:gap-3 ml-auto shrink-0">
           {/* Wallet Balance Chip */}
-          <Link href="/wallet">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors border border-accent/20 cursor-pointer">
-              <WalletIcon className="h-4 w-4 text-accent" />
-              <span className="text-xs font-bold text-text-primary dark:text-text-primary-dark">
+          <Link href="/wallet" className="shrink-0">
+            <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors border border-accent/20 cursor-pointer">
+              <WalletIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
+              <span className="text-[11px] sm:text-xs font-bold text-text-primary dark:text-text-primary-dark">
                 {wallet ? formatCurrency(wallet.balance) : "₹0"}
               </span>
             </div>
@@ -53,20 +53,22 @@ export function Navbar() {
           <button
             onClick={() => setIsOpen(true)}
             type="button"
-            className="relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-text-primary dark:text-text-primary-dark transition-colors cursor-pointer"
+            className="relative p-1.5 sm:p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-text-primary dark:text-text-primary-dark transition-colors cursor-pointer shrink-0"
             aria-label="Open Cart"
           >
-            <ShoppingBag className="h-5 w-5 text-amber-700 dark:text-amber-400" />
+            <ShoppingBag className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-amber-700 dark:text-amber-400" />
             <span className="absolute -top-1 -right-1 h-4.5 w-4.5 rounded-full bg-[#D4A24C] text-[#2E1A47] text-[10px] font-bold flex items-center justify-center border border-white dark:border-surface-dark">
               {totalCartCount}
             </span>
           </button>
 
           {/* Theme Toggle */}
-          <ThemeToggle />
+          <div className="shrink-0">
+            <ThemeToggle />
+          </div>
 
           {/* User Profile Avatar Link */}
-          <Link href="/profile" className="ml-1">
+          <Link href="/profile" className="ml-0.5 shrink-0">
             <Avatar
               name="Arjun Mehta"
               src="https://api.dicebear.com/7.x/personas/svg?seed=Arjun"

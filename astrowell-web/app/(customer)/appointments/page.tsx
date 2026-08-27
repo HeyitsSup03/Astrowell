@@ -196,22 +196,22 @@ export default function AppointmentsPage() {
                 )}
 
                 {/* Card Action Buttons */}
-                <div className="flex items-center justify-between pt-3 border-t border-black/5 dark:border-white/8">
+                <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-3 pt-3 border-t border-black/5 dark:border-white/8">
                   <span className="text-xs font-mono text-text-muted dark:text-text-muted-dark">
                     Booking Ref: #{appt.id}
                   </span>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 w-full xs:w-auto justify-end">
                     {appt.status === "confirmed" && (
                       <>
                         <Link href={`/chat/conv-001`}>
-                          <Button size="sm" variant="accent" className="font-semibold gap-1.5 cursor-pointer">
-                            <MessageSquare className="h-4 w-4" /> Start Chat
+                          <Button size="sm" variant="accent" className="font-semibold gap-1.5 cursor-pointer text-xs px-3 py-1.5">
+                            <MessageSquare className="h-3.5 w-3.5" /> Start Chat
                           </Button>
                         </Link>
                         <Link href={`/call/session-001`}>
-                          <Button size="sm" variant="outline" className="font-semibold gap-1.5 cursor-pointer">
-                            <Video className="h-4 w-4" /> Join Call
+                          <Button size="sm" variant="outline" className="font-semibold gap-1.5 cursor-pointer text-xs px-3 py-1.5">
+                            <Video className="h-3.5 w-3.5" /> Join Call
                           </Button>
                         </Link>
                       </>

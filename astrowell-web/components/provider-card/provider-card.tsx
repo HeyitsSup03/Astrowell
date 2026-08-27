@@ -31,7 +31,7 @@ export function ProviderCard({ provider, layout = "grid" }: ProviderCardProps) {
   };
 
   return (
-    <Card hoverable className="flex flex-col justify-between h-full group overflow-hidden p-5 border-black/6 dark:border-white/8 hover:border-accent/30 dark:hover:border-accent/40 transition-all duration-300">
+    <Card hoverable className="flex flex-col justify-between h-full group overflow-hidden p-4 sm:p-5 border-black/6 dark:border-white/8 hover:border-accent/30 dark:hover:border-accent/40 transition-all duration-300">
       <div className="space-y-3.5">
         {/* Top Header: Avatar + Info */}
         <div className="flex items-start gap-3.5">

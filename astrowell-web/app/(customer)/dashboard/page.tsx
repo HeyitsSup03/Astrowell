@@ -115,7 +115,7 @@ function CustomerDashboardContent() {
       </Card>
 
       {/* ── UNIFIED CELESTIAL EXPERTS MASTER CARD ─────────────────── */}
-      <Card className="p-6 md:p-8 space-y-6 rounded-3xl bg-surface dark:bg-surface-dark border border-black/8 dark:border-white/12 shadow-xl relative overflow-hidden">
+      <Card className="p-4 sm:p-6 md:p-8 space-y-6 rounded-3xl bg-surface dark:bg-surface-dark border border-black/8 dark:border-white/12 shadow-xl relative overflow-hidden">
         {/* Card Header & Counter Badge */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-black/5 dark:border-white/8">
           <div className="space-y-1">
